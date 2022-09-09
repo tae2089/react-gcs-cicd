@@ -4,14 +4,17 @@
 name: static web site with gcs
 
 on:
+  # pull_request
   push:
-    branches: ["dev"]
+    branches: ["main"]
   pull_request:
     branches: ["main"]
 
 jobs:
   build:
+    if: contains(github.ref, 'merge')
     # runs-on: ubuntu-latest
+
     runs-on: self-hosted
 
     strategy:
@@ -43,7 +46,8 @@ jobs:
 
   deploy_to_main:
     needs: build
-    runs-on: ubuntu-18.04
+    if: contains(github.ref,'main')
+    runs-on: self-hosted
     steps:
       # - name: Download production artifacts # download file
       #   uses: actions/download-artifact@v1
@@ -61,4 +65,4 @@ jobs:
       - name: "Use gcloud CLI"
         run: "gcloud info"
 
-    if: github.event.pull_request.merged == true # github branch가 develop일 때만 develop_to_dev를 실행한다.
+    # if: github.event.pull_request.merged == true # github branch가 develop일 때만 develop_to_dev를 실행한다.
