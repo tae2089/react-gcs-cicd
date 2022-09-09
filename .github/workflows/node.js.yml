@@ -12,9 +12,9 @@ on:
 
 jobs:
   build:
-    # runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-    runs-on: self-hosted
+    # runs-on: self-hosted
 
     strategy:
       matrix:
@@ -39,6 +39,7 @@ jobs:
 
       - name: build site
         run: npm run build --if-present
+        if: contains(github.ref, 'main')
 
       - name: upload artifact
         uses: actions/upload-artifact@v3
@@ -50,7 +51,8 @@ jobs:
   deploy_to_main:
     if: contains(github.ref,'main')
     needs: build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    # runs-on: self-hosted
     steps:
       - name: Download production artifacts # download file
         uses: actions/download-artifact@v1
