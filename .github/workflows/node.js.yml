@@ -39,6 +39,12 @@ jobs:
 
       - name: build site
         run: npm run build --if-present
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
         if: contains(github.ref, 'main')
 
   deploy_to_main:
