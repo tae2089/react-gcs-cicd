@@ -45,14 +45,13 @@ jobs:
         run: echo "${{github.ref}}"
 
   deploy_to_main:
-    needs: build
     if: contains(github.ref,'main')
     runs-on: self-hosted
     steps:
-      # - name: Download production artifacts # download file
-      #   uses: actions/download-artifact@v1
-      #   with:
-      #     name: build # artifact name
+      - name: Download production artifacts # download file
+        uses: actions/download-artifact@v1
+        with:
+          name: build # artifact name
 
       - name: google auth # S3에 배포하기
         uses: "google-github-actions/auth@v0"
