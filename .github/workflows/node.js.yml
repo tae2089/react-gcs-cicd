@@ -71,6 +71,6 @@ jobs:
         run: "gcloud info"
 
       - name: "copy files"
-        run: gsutil cp -R build/* gs://${secrets.BUCKET_NAME}/
+        run: gsutil cp -R build/* gs://${{secrets.BUCKET_NAME}}/
 
     # if: github.event.pull_request.merged == true # github branch가 develop일 때만 develop_to_dev를 실행한다.
