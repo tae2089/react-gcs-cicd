@@ -43,7 +43,7 @@ jobs:
 
   deploy_to_main:
     needs: build
-    runs-on: ubuntu-18.04
+    runs-on: self-hosted
     steps:
       # - name: Download production artifacts # download file
       #   uses: actions/download-artifact@v1
@@ -61,4 +61,4 @@ jobs:
       - name: "Use gcloud CLI"
         run: "gcloud info"
 
-    if: github.event.pull_request.merged == true # github branch가 develop일 때만 develop_to_dev를 실행한다.
+    # if: github.event.pull_request.merged == true # github branch가 develop일 때만 develop_to_dev를 실행한다.
