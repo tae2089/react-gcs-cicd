@@ -75,5 +75,6 @@ jobs:
         with:
           path: "./build"
           destination: "${{secrets.BUCKET_NAME}}"
+          glob: "**"
 
     # if: github.event.pull_request.merged == true # github branch가 develop일 때만 develop_to_dev를 실행한다.
