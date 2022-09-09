@@ -5,7 +5,7 @@ name: static web site with gcs
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches: ["dev"]
   pull_request:
     branches: ["main"]
 
@@ -37,6 +37,9 @@ jobs:
       - name: build site
         run: npm run build --if-present
 
+      - name: echo branch ref
+        run: echo "${{github.ref}}"
+
   deploy_to_main:
     needs: build
     runs-on: ubuntu-18.04
@@ -57,4 +60,4 @@ jobs:
       - name: "Use gcloud CLI"
         run: "gcloud info"
 
-    if: contains(github.ref, 'main') && github.actiongithub.event_name == 'push' # github branch가 develop일 때만 develop_to_dev를 실행한다.
+    if: github.event.pull_request.merged == true # github branch가 develop일 때만 develop_to_dev를 실행한다.
